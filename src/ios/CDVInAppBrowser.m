@@ -36,6 +36,7 @@
 CDVInAppBrowserViewController *vc;
 CDVInAppBrowserViewController *iabvc;
 CDVInAppBrowser *iab;
+CDVInAppBrowserOptions* browserOptions;
 
 BOOL WINDOWED_MODE_ENABLED;
 int VIEW_WIDTH;
@@ -265,10 +266,18 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
 
         [iabvc viewWillAppear:NO];
         [vc.self.view addSubview:iabvc.view];
-
+        
         if(!HAS_ANIMATED){
             [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:0.30];
+            if (browserOptions.animationduration >= 0) {
+                //if ([[browserOptions.animationduration lowercaseString] isEqualToString:@"fliphorizontal"]) {
+                    [UIView setAnimationDuration:browserOptions.animationduration];
+                //}
+            }
+            else{
+                [UIView setAnimationDuration:0.30];
+            }
+            //[UIView setAnimationDuration:0.30];
             [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 
             iabvc.view.frame = vcBounds;
@@ -308,7 +317,7 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
     // set pointer to this viewcontroller for later use
     iabvc = self.inAppBrowserViewController;
 
-    CDVInAppBrowserOptions* browserOptions = [CDVInAppBrowserOptions parseOptions:options];
+    browserOptions = [CDVInAppBrowserOptions parseOptions:options];
     [self.inAppBrowserViewController showLocationBar:browserOptions.location];
     [self.inAppBrowserViewController showToolBar:browserOptions.toolbar];
 

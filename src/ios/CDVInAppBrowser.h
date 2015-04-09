@@ -88,6 +88,7 @@
 @property (nonatomic, assign) BOOL suppressesincrementalrendering;
 @property (nonatomic, assign) BOOL hidden;
 
+@property (nonatomic, assign) double animationduration;
 @property (nonatomic, assign) CGFloat vw;
 @property (nonatomic, assign) CGFloat vh;
 @property (nonatomic, assign) CGFloat vx;
