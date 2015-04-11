@@ -981,7 +981,7 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
     }
 
     if ([iab respondsToSelector:@selector(initOrRefreshViewSizeAndBounds)]){
-        [iab initOrRefreshViewSizeAndBounds];
+        //[iab initOrRefreshViewSizeAndBounds];
     }
 }
 
