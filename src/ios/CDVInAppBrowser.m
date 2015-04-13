@@ -383,7 +383,8 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
 {
     if ([self.inAppBrowserViewController isViewLoaded] && self.inAppBrowserViewController.view.window)
         return;
-    [self.viewController presentModalViewController:self.inAppBrowserViewController animated:YES];
+    //[self.viewController presentModalViewController:self.inAppBrowserViewController animated:NO];
+    [self initOrRefreshViewSizeAndBounds];
 }
 
 - (void)openInCordovaWebView:(NSURL*)url withOptions:(NSString*)options
