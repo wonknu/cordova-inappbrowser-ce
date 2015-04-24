@@ -1055,7 +1055,8 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
     } else {
         [CDVUserAgentUtil acquireLock:^(NSInteger lockToken) {
             _userAgentLockToken = lockToken;
-            [CDVUserAgentUtil setUserAgent:_userAgent lockToken:lockToken];
+            NSString *strAgent = [_userAgent stringByAppendingString:@" sieconline"];
+            [CDVUserAgentUtil setUserAgent:strAgent lockToken:lockToken];
             [self.webView loadRequest:request];
         }];
     }
