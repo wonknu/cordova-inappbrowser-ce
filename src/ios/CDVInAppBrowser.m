@@ -149,8 +149,10 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
 
             if (url != nil) {
                 NSURL* baseUrl = [self.webView.request URL];
-                NSURL* absoluteUrl = [[NSURL URLWithString:url relativeToURL:baseUrl] absoluteURL];
-
+                NSString* escapedURL = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                NSURL* absoluteUrl = [[NSURL URLWithString:escapedURL relativeToURL:baseUrl] absoluteURL];
+                NSLog(@"--> absoluteUrl :%@", absoluteUrl);
+                
                 if ([self isSystemUrl:absoluteUrl]) {
                     target = kInAppBrowserTargetSystem;
                 }
@@ -216,21 +218,10 @@ NSString *CLOSE_BUTTON_LABEL = @"Done";
     }else{
 
         vc = (CDVInAppBrowserViewController*)[ super viewController ];
-
-        /*DEBUG*/ //NSLog(@" ... windowed mode");
-        if((IN_ROTATED_MODE) || (IN_FULLSCREEN_MODE)){
-            /*DEBUG*/ //NSLog(@" ...... rotated or fullscreen-toggeled mode");
-            w = deviceW;
-            h = deviceH;
-            x = 0;
-            y = 0;
-        }else{
-            /*DEBUG*/ //NSLog(@" ...... default view mode");
-            w = VIEW_WIDTH;
-            h = VIEW_HEIGHT;
-            x = VIEW_XPOS;
-            y = VIEW_YPOS;
-        }
+        w = VIEW_WIDTH;
+        h = VIEW_HEIGHT;
+        x = VIEW_XPOS;
+        y = VIEW_YPOS;
     }
 
 
