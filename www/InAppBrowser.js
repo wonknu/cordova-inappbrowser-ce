@@ -1,4 +1,4 @@
-/*
+cordova.define("org.apache.cordova.plugins.inappbrowser.InAppBrowser", function(require, exports, module) { /*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -34,7 +34,7 @@ function InAppBrowser() {
 
 InAppBrowser.prototype = {
 _eventHandler: function (event) {
-    if (event.type in this.channels) {
+    if(event && (event.type in this.channels)){
         this.channels[event.type].fire(event);
     }
 },
@@ -96,3 +96,4 @@ module.exports = function(strUrl, strWindowName, strWindowFeatures) {
 
 
 window.console.log('inappbrowser.js loaded...');
+});
