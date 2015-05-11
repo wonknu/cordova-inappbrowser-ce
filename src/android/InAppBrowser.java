@@ -319,7 +319,8 @@ public class InAppBrowser extends CordovaPlugin {
      */
     private void closeDialog() {
         try {
-            this.inAppWebView.loadUrl("about:blank");
+            //this.inAppWebView.loadUrl("about:blank");
+            dialog.dismiss();
             JSONObject obj = new JSONObject();
             obj.put("type", EXIT_EVENT);
 
@@ -619,9 +620,9 @@ public class InAppBrowser extends CordovaPlugin {
                 display.getSize(size);
                 int width = size.x;
                 int height = size.y;
-                lp.height = height - 80;
+                lp.height = height - 200;
                 lp.x = 0;
-                lp.y = 80;
+                lp.y = 200;
 
                 dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
                 lp.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
