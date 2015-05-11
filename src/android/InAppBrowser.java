@@ -424,7 +424,15 @@ public class InAppBrowser extends CordovaPlugin {
 
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                dialog.setCanceledOnTouchOutside(true);
+                //dialog.setCanceledOnTouchOutside(true);
+                dialog.setCanceledOnTouchOutside(false);
+
+
+                //Window window = dialog.getWindow();
+                //dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+                //dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+
 
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         public void onDismiss(DialogInterface dialog) {
@@ -533,6 +541,7 @@ public class InAppBrowser extends CordovaPlugin {
                 inAppWebView.setWebViewClient(client);
                 inAppWebView.setBackgroundColor(0);
                 inAppWebView.setLayerType(inAppWebView.LAYER_TYPE_SOFTWARE, null);
+                //inAppWebView.setY(200);
                 WebSettings settings = inAppWebView.getSettings();
                 settings.setJavaScriptEnabled(true);
                 settings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -550,12 +559,15 @@ public class InAppBrowser extends CordovaPlugin {
                 }
                 settings.setDomStorageEnabled(true);
 
+                inAppWebView.getSettings().setUserAgentString(inAppWebView.getSettings().getUserAgentString() + " sieconline");
+
                 inAppWebView.loadUrl(url);
                 inAppWebView.setId(6);
                 inAppWebView.getSettings().setLoadWithOverviewMode(true);
-                inAppWebView.getSettings().setUseWideViewPort(true);
-                inAppWebView.requestFocus();
-                inAppWebView.requestFocusFromTouch();
+                //inAppWebView.getSettings().setUseWideViewPort(true);
+                inAppWebView.getSettings().setUseWideViewPort(false);
+                //inAppWebView.requestFocus();
+                //inAppWebView.requestFocusFromTouch();
 
                 // Add the back and forward buttons to our action button container layout
                 /*cemerson*/ if(arrowButtonsAllowed){
@@ -594,19 +606,26 @@ public class InAppBrowser extends CordovaPlugin {
                 // Add our webview to our main view/layout
                 main.addView(inAppWebView);
 
+
                 WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
                 lp.copyFrom(dialog.getWindow().getAttributes());
                 lp.gravity = Gravity.TOP | Gravity.LEFT;
                 lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                lp.height = WindowManager.LayoutParams.MATCH_PARENT;
                 //lp.height = WindowManager.LayoutParams.MATCH_PARENT;
+
                 Display display = cordova.getActivity().getWindowManager().getDefaultDisplay();
                 Point size = new Point();
                 display.getSize(size);
                 int width = size.x;
                 int height = size.y;
-                lp.height = height - 242;
+                lp.height = height - 80;
                 lp.x = 0;
-                lp.y = 242;
+                lp.y = 80;
+
+                dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+                lp.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
+                //dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
                 dialog.setContentView(main);
                 dialog.show();
